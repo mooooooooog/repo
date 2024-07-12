@@ -50,7 +50,6 @@ public class JavaProblemProjectService {
 		Problem problem = null;
 		Category findByCategory = null;
 
-
 		for (Category c : Category.values()) {
 			if (c.name().equals(category)) {
 				findByCategory = Category.valueOf(category);
@@ -68,7 +67,7 @@ public class JavaProblemProjectService {
 		if (problem != null) {
 			solve(user, problem);
 		} else {
-			System.out.println("No problem found for category: " + category);
+			System.out.println("해당 카테고리는 존재하지 않습니다 : " + category);
 		}
 	}
 
