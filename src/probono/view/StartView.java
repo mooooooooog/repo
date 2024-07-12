@@ -7,7 +7,6 @@ import probono.model.dto.Problem;
 import probono.model.dto.User;
 
 import java.util.Scanner;
-import static probono.model.dto.Category.*;
 
 public class StartView {
 
@@ -48,7 +47,7 @@ public class StartView {
 
 		// 사용자 최종 점수 알려주기
 		System.out.println(user.getNickname() +  "님의 최종 점수: "+ user.getScore());
-		System.out.println(user.getNickname()+ " 님의 등급: " + user.getGrade());
+		System.out.println(user.getNickname()+ "님의 최종 등급: " + user.getGrade());
 
 		int menu = scanner.nextInt();
 
