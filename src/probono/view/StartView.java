@@ -1,22 +1,8 @@
-/** 
-4 * PROJECT  : 재능기부 프로젝트
- * NAME  :  StartView.java
- * DESC  : 실행 클래스
- * 		     기부자, 수혜자, 재능기부 종류 및 실제 진행되는 프로젝트 생성 및 CRUD 로직을 test하는 클래스
- * 
- * @author  
- * @version 1.0
-*/
-
 package probono.view;
 
 import probono.controller.JavaProblemProjectController;
-import probono.controller.TalentDonationProjectController;
 import probono.model.dto.Category;
-import probono.model.dto.JavaProblemProject;
 import probono.model.dto.JavaProblemRepository;
-import probono.model.dto.Problem;
-import probono.model.dto.TalentDonationProject;
 import probono.model.dto.User;
 
 import java.util.Scanner;
@@ -35,7 +21,6 @@ public class StartView {
 		System.out.print("닉네임을 입력해주세요: ");
 		String nickname = scanner.nextLine();
 
-
 		if (!controller.checkDuplicateNickname(nickname)) {
 			nickname = scanner.nextLine();
 		}
@@ -45,7 +30,7 @@ public class StartView {
 
 		// 모든 문제 풀기
 		System.out.println("\n*** 문제 풀이를 시작합니다 ***");
-		controller.getProblemList();
+		controller.getProblemList(nickname);
 
 		// 사용자 최종 점수 알려주기
 		System.out.println(user.getNickname() +  "님의 최종 점수: "+ user.getScore());
@@ -68,13 +53,7 @@ public class StartView {
 					// 카테고리 메뉴 출력
 					System.out.println(Category.print());
 					String category = scanner.nextLine();
-					Problem problem = controller.getProblem(category);
-					if (problem == null) {
-						System.out.println("해당 카테고리는 존재하지 않는 카테고리 입니다.");
-						break;
-					}
-
-
+					controller.getProblem(nickname, category);
 					break;
 
 				case 2:
@@ -85,7 +64,7 @@ public class StartView {
 						newNickname = scanner.nextLine();
 					}
 
-					user = javaProblemRepository.getUserByNickname(nickname);
+					user = repository.getUserByNickname(nickname);
 					user.setNickname(newNickname);
 					break;
 
@@ -97,7 +76,7 @@ public class StartView {
 
 					// 모든 문제 풀기
 					System.out.println("\n*** 문제 풀이를 시작합니다 ***");
-					controller.getProblemList();
+					controller.getProblemList(nickname);
 
 					// 사용자 최종 점수 알려주기
 					System.out.println(user.getNickname() +  "님의 최종 점수: "+ user.getScore());

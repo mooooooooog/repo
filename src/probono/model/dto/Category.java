@@ -6,6 +6,4 @@ public enum Category {
     static public String print() {
         return "A, B, C, D";
     }
-
-
 }
