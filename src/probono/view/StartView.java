@@ -69,13 +69,13 @@ public class StartView {
 			 *  3. 종료
 			 *  4. 재시험
 			 * */
-			System.out.println(" menu: " +
+			System.out.println(" *** menu *** " +
 					"\n 1.원하는 카테고리 문제 하나 풀기 " +
 					"\n 2. 유저 정보 수정하기" +
 					"\n 3. 종료하기" +
 					"\n 4. 처음부터 다시 문제 풀기 " +
 					"\n >>" );
-			menu : scanner.nextInt();
+			menu = scanner.nextInt();
 			switch (menu) {
 				case 1:
 					// 원하는 카테고리 문제 하나 풀기
@@ -90,12 +90,20 @@ public class StartView {
 					// 유저 정보 수정하기
 					System.out.println("\n*** 수정할 닉네임을 입력하세요 ***");
 					String newNickname = scanner.nextLine();
-					if (!controller.checkDuplicateNickname(newNickname)) {
-						newNickname = scanner.nextLine();
+					while(true) {
+						if (controller.checkDuplicateNickname(newNickname)) {
+							//닉네임 중복시 처리
+							System.out.println("\n*** 이미 존재하는 닉네임입니다. 다시 입력해주세요  ***");
+							newNickname = scanner.nextLine();
+
+						}else {
+							//중복 아닐때 while문 탈출
+							break;
+						}
 					}
 
-					user = repository.getUserByNickname(nickname);
 					user.setNickname(newNickname);
+					System.out.println("바꿈 user >>" + user);
 					break;
 
 				case 3:

@@ -31,4 +31,16 @@ public class User {
         else if (score >= 20) return Grade.SILVER;
         else return Grade.BRONZE;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("USER_NO : ");
+        builder.append(no);
+        builder.append("\n USER_NICKNAME : ");
+        builder.append(nickname);
+        builder.append("\n USER_GRADE : ");
+        builder.append(grade);
+        return builder.toString();
+    }
 }
