@@ -7,6 +7,8 @@ import probono.model.dto.Problem;
 import probono.model.dto.User;
 
 import java.util.Scanner;
+import static probono.model.dto.Category.*;
+import static probono.model.dto.Grade.GOLD;
 
 public class StartView {
 
@@ -27,6 +29,15 @@ public class StartView {
 		repository.addProblem(p4);
 		Problem p5 = new Problem("MVC 관한 문제입니다.", "Q. 브라우저로부터 받은 요청을 구분해서 핵심 로직을 지정 및 실행하는 요소는?", "controller", Category.MVC);
 		repository.addProblem(p5);
+
+
+		//User 리스트
+		User  user1 = new User("cc",0, GOLD);
+		repository.addUser(user1);
+		User  user2 = new User("bb",10, GOLD);
+		repository.addUser(user2);
+		User  user3 = new User("aa",110, GOLD);
+		repository.addUser(user3);
 
 		System.out.println("*** 자바 문제 풀기 프로그램 ***");
 
@@ -49,7 +60,7 @@ public class StartView {
 		System.out.println(user.getNickname() +  "님의 최종 점수: "+ user.getScore());
 		System.out.println(user.getNickname()+ "님의 최종 등급: " + user.getGrade());
 
-		int menu = scanner.nextInt();
+		int menu = 0;
 
 		while (menu!=3) {
 			/* 추가 메뉴
@@ -58,7 +69,13 @@ public class StartView {
 			 *  3. 종료
 			 *  4. 재시험
 			 * */
-
+			System.out.println(" menu: " +
+					"\n 1.원하는 카테고리 문제 하나 풀기 " +
+					"\n 2. 유저 정보 수정하기" +
+					"\n 3. 종료하기" +
+					"\n 4. 처음부터 다시 문제 풀기 " +
+					"\n >>" );
+			menu : scanner.nextInt();
 			switch (menu) {
 				case 1:
 					// 원하는 카테고리 문제 하나 풀기
