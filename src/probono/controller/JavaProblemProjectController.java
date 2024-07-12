@@ -1,6 +1,7 @@
 package probono.controller;
 
 import probono.model.dto.JavaProblemRepository;
+import probono.model.dto.Problem;
 import probono.model.dto.User;
 import probono.service.JavaProblemProjectService;
 import probono.view.EndView;
@@ -37,6 +38,9 @@ public class JavaProblemProjectController {
 	// 1. 모든 문제 풀기 (메인기능)
 
 	// 2. 원하는 문제 추가 풀기
+	public Problem getProblem(String category){
+		return repository.getProblem(category);
+	}
 
 	// 3. 유저 닉네임 수정하기
 
