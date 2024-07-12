@@ -18,10 +18,9 @@ public class StartView {
 		System.out.println("*** 자바 문제 풀기 프로그램 ***");
 
 		// 닉네임 입력받기
-		System.out.print("닉네임을 입력해주세요: ");
 		String nickname = scanner.nextLine();
 
-		if (!controller.checkDuplicateNickname(nickname)) {
+		if (controller.checkDuplicateNickname(nickname)) {
 			nickname = scanner.nextLine();
 		}
 
