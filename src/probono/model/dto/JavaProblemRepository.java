@@ -24,6 +24,10 @@ public class JavaProblemRepository {
         return users;
     }
 
+    public void addProblem(Problem problem) {
+        problems.add(problem);
+    }
+
     public ArrayList<Problem> getProblems() {
         return problems;
     }
