@@ -1,9 +1,9 @@
 package probono.model.dto;
 
 public enum Category {
-    A,B,C,D;
+    Static, Builder, DataType, Inheritance, Exception;
 
     static public String print() {
-        return "A, B, C, D";
+        return "Static, Builder, DataType, Inheritance, Exception";
     }
 }
