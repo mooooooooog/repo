@@ -23,4 +23,12 @@ public class User {
         no++;
         score = 0;
     }
+
+    public Grade getGrade() {
+        if (score >= 50) return Grade.DIAMOND;
+        else if (score >= 40) return Grade.PLATINUM;
+        else if (score >= 30) return Grade.GOLD;
+        else if (score >= 20) return Grade.SILVER;
+        else return Grade.BRONZE;
+    }
 }
