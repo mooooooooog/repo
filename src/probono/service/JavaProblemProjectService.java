@@ -70,7 +70,7 @@ public class JavaProblemProjectService {
 		String answer = scanner.nextLine();
 
 		if (answer.equals(problem.getAnswer())) {
-			user.setScore(user.getScore()+1);
+			user.setScore(user.getScore()+10);
 			System.out.println("정답을 맞히셨습니다!");
 		} else {
 			System.out.println("틀렸습니다!");
