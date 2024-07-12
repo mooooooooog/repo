@@ -1,0 +1,11 @@
+StartView[V]
+	-> TalentDonationProjectController[Servlet or SpringController]
+		-> TalentDonationProjectService
+				-> 향후 DAO 예정
+					-> 향DB
+			-> TalentDonationProjectController
+				-> 정상 EndView[jsp]
+				-> 비정상 FailView[jsp]
+					
+					
+		
