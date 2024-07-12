@@ -1,28 +1,22 @@
-/** 
- * PROJECT  : 재능기부 프로젝트
- * NAME  :  TalentDonationProjectService.java
- * DESC  :  재능 기부 프로젝트를 저장, 수정, 삭제, 검색하는 서비스 로직
- * 
- * @author  
- * @version 1.0
-*/
-
 package probono.service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Scanner;
 
-import probono.model.dto.TalentDonationProject;
-
+import probono.model.dto.Category;
+import probono.model.dto.JavaProblemRepository;
+import probono.model.dto.Problem;
+import probono.model.dto.User;
 
 public class JavaProblemProjectService {
 
 	// singleton design pattern
 	private static JavaProblemProjectService instance = new JavaProblemProjectService();
 
-	/**   
-	 * 진행중인 Project를 저장
-	 */
-	private ArrayList<TalentDonationProject> donationProjectList = new ArrayList<TalentDonationProject>();
+	private final JavaProblemRepository repository = JavaProblemRepository.getInstance();
+
+	private final Scanner scanner = new Scanner(System.in);;
 
 	private JavaProblemProjectService() {}
 
@@ -30,116 +24,60 @@ public class JavaProblemProjectService {
 		return instance;
 	}
 
-	/**
-	 * 모든 Project 검색
-	 * 
-	 * @return 모든 Project
-	 */
-	public ArrayList<TalentDonationProject> getDonationProjectsList() {
-		return donationProjectList;
-	}
-
-	// TO DO - 구현 및 완성해야 할 job
-	/**
-	 * Project 이름으로 검색 - 객체된 Project 반환하기
-	 * 
-	 * @param projectName 프로젝트 이름
-	 * @return TalentDonationProject 검색된 프로젝트
-	 */
-	public TalentDonationProject getDonationProject(String projectName) {
-		
-		for (TalentDonationProject project : donationProjectList) {
-			if (project != null && project.getTalentDonationProjectName().equals(projectName)) {
-				return project; //메소드 자체의 종료
-			}
+	// 닉네임 중복 검사
+	public boolean checkDuplicateNickname(String nickname) {
+		ArrayList<User> users = repository.getUsers();
+		boolean b = false;
+		if (!users.isEmpty()) {
+			b = users.stream().anyMatch(user -> nickname.equals(user.getNickname()));
 		}
-
-		return null;
+		return b;
 	}
 
-	// TO DO
-	/**
-	 * 새로운 Project 추가
-	 * 
-	 * @param project 저장하고자 하는 새로운 프로젝트
-	 */
-	
-	/* Controller의 메소드 
-	 * 	public void donationProjectInsert(TalentDonationProject project){}
-	 * */
-	public void donationProjectInsert(TalentDonationProject project)
-			throws Exception {
-		
-		TalentDonationProject p = getDonationProject(project.getTalentDonationProjectName());
+	// 1. 모든 문제 풀기 (메인기능)
+	public void getProblemList(String nickname) {
+		User user = repository.getUserByNickname(nickname);
 
-		if (p != null) {
-			throw new Exception("해당 project명은 이미 존재합니다. 재 확인하세요");
+		ArrayList<Problem> problems = repository.getProblems();
+		for (Problem problem : problems) {
+			solve(user, problem);
 		}
-
-		donationProjectList.add(project);
-		
 	}
 
-	/**
-	 * Project의 기부자 수정 - 프로젝트 명으로 검색해서 해당 프로젝트의 기부자 수정
-	 * 
-	 * @param projectName 프로젝트 이름
-	 * @param people      기부자
-	 */
-	public void donationProjectUpdate(String projectName, Donator people) throws Exception {
+	// 2. 원하는 문제 추가 풀기
+	public void getProblem(String nickname, String category) {
+		User user = repository.getUserByNickname(nickname);
 
-		for (TalentDonationProject project : donationProjectList) {
+		ArrayList<Problem> problems = repository.getProblems();
+		Iterator<Problem> iterator = problems.iterator();
 
-			if (project != null && project.getTalentDonationProjectName().equals(projectName)) {
-
-				if (people != null) {
-					project.setProjectDonator(people);
-					break;
-				} else {
-					throw new Exception("프로젝트 이름은 있으나 기부자 정보 누락 재확인 하세요");
+		Problem problem = null;
+		
+		for (Category c : Category.values()){
+			if (c.name().equals(category)){
+				Category findByCategory = Category.valueOf(category);
+				while (iterator.hasNext()) {
+					if (iterator.next().getCategory().equals(findByCategory)) {
+						problem = iterator.next();
+					}
 				}
-
-			} else {
-				throw new Exception("프로젝트 이름과 기부자 정보 재 확인 하세요");
 			}
 		}
 
+		solve(user, problem);
 	}
 
-	// TO DO
-	/**
-	 * Project의 수혜자 수정 - 프로젝트 명으로 검색해서 해당 프로젝트의 수혜자 수정
-	 * 
-	 * @param projectName 프로젝트 이름
-	 * @param people      수혜자
-	 */
-	public void beneficiaryProjectUpdate(String projectName, Beneficiary people) {
+	private void solve(User user, Problem problem) {
+		System.out.println(problem.getTitle());
+		System.out.println(problem.getQuestion());
 
-		for (TalentDonationProject project : donationProjectList) {
+		String answer = scanner.nextLine();
 
-			if (project != null && project.getTalentDonationProjectName().equals(projectName)) {
-
-				project.setProjectBeneficiary(people);
-
-				break;
-			}
+		if (answer.equals(problem.getAnswer())) {
+			user.setScore(user.getScore()+1);
+			System.out.println("정답을 맞히셨습니다!");
+		} else {
+			System.out.println("틀렸습니다!");
 		}
-
 	}
-
-	// TO DO
-	/**
-	 * Project 삭제 - 프로젝트 명으로 해당 프로젝트 삭제
-	 * 
-	 * @param projectName 삭제하고자 하는 프로젝트 이름
-	 */
-	public void donationProjectDelete(String projectName) {
-		TalentDonationProject project = getDonationProject(projectName);
-
-		if (project != null) {
-			donationProjectList.remove(project);
-		}
-
-	}
-
 }
