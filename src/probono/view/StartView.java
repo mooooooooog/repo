@@ -52,13 +52,13 @@ public class StartView {
 		User user = new User(nickname);
 		repository.addUser(user);
 
-		// 모든 문제 풀기
-		System.out.println("\n*** 문제 풀이를 시작합니다 ***");
-		controller.getProblemList(nickname);
-
-		// 사용자 최종 점수 알려주기
-		System.out.println(user.getNickname() +  "님의 최종 점수: "+ user.getScore());
-		System.out.println(user.getNickname()+ "님의 최종 등급: " + user.getGrade());
+//		// 모든 문제 풀기
+//		System.out.println("\n*** 문제 풀이를 시작합니다 ***");
+//		controller.getProblemList(nickname);
+//
+//		// 사용자 최종 점수 알려주기
+//		System.out.println(user.getNickname() +  "님의 최종 점수: "+ user.getScore());
+//		System.out.println(user.getNickname()+ "님의 최종 등급: " + user.getGrade());
 
 		int menu = 0;
 
@@ -76,6 +76,7 @@ public class StartView {
 					"\n 4. 처음부터 다시 문제 풀기 " +
 					"\n >>" );
 			menu = scanner.nextInt();
+			scanner.nextLine();
 			switch (menu) {
 				case 1:
 					// 원하는 카테고리 문제 하나 풀기
