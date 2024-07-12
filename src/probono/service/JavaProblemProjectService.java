@@ -35,9 +35,7 @@ public class JavaProblemProjectService {
 	}
 
 	// 1. 모든 문제 풀기 (메인기능)
-	public void getProblemList(String nickname) {
-		User user = repository.getUserByNickname(nickname);
-
+	public void getProblemList(User user) {
 		ArrayList<Problem> problems = repository.getProblems();
 		for (Problem problem : problems) {
 			solve(user, problem);
@@ -45,9 +43,7 @@ public class JavaProblemProjectService {
 	}
 
 	// 2. 원하는 문제 추가 풀기
-	public void getProblem(String nickname, String category) {
-		User user = repository.getUserByNickname(nickname);
-
+	public void getProblem(User user, String category) {
 		ArrayList<Problem> problems = repository.getProblems();
 		Iterator<Problem> iterator = problems.iterator();
 
