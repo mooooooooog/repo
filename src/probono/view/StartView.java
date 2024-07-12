@@ -8,6 +8,8 @@ import probono.model.dto.User;
 
 import java.util.Scanner;
 
+import static probono.model.dto.Category.*;
+
 public class StartView {
 
 	public static void main(String[] args) {
@@ -34,7 +36,7 @@ public class StartView {
 		System.out.print("닉네임을 입력해주세요: ");
 		String nickname = scanner.nextLine();
 
-		if (!controller.checkDuplicateNickname(nickname)) {
+		while (controller.checkDuplicateNickname(nickname)) {
 			nickname = scanner.nextLine();
 		}
 
