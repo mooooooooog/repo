@@ -38,6 +38,9 @@ public class JavaProblemProjectController {
 	}
 
 	// 3. 유저 닉네임 수정하기
+	public void resetNickname(String nickname, User newUser) {
+		repository.resetNickname(nickname, newUser);
+	}
 
 
 }

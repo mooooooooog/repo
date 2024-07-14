@@ -48,28 +48,23 @@ public class JavaProblemProjectService {
 		Iterator<Problem> iterator = problems.iterator();
 
 		Problem problem = null;
-		Category findByCategory = null;
 
-
-		for (Category c : Category.values()) {
-			if (c.name().equals(category)) {
-				findByCategory = Category.valueOf(category);
+		for (Category c : Category.values()){
+			if (c.name().equals(category)){
+				Category findByCategory = Category.valueOf(category);
+				while (iterator.hasNext()) {
+					problem = iterator.next();
+					if (problem.getCategory().equals(findByCategory)) {
+						break;
+					}
+				}
 			}
 		}
-
-		while (iterator.hasNext()) {
-			Problem currentProblem = iterator.next();
-			if (currentProblem.getCategory().equals(findByCategory)) {
-				problem = currentProblem;
-				break;
-			}
+		if (problem == null) {
+			throw new IllegalStateException("카테고리를 정확하게 입력해주세요");
 		}
 
-		if (problem != null) {
-			solve(user, problem);
-		} else {
-			System.out.println("No problem found for category: " + category);
-		}
+		solve(user, problem);
 	}
 
 	private void solve(User user, Problem problem) {
