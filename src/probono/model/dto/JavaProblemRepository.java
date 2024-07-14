@@ -11,6 +11,7 @@ public class JavaProblemRepository {
     public static JavaProblemRepository getInstance() {
         return instance;
     }
+    private JavaProblemRepository(){}
 
     public User getUserByNickname(String nickname) {
         return users.stream().filter(user -> user.getNickname().equals(nickname)).findFirst().orElse(null);
@@ -30,5 +31,10 @@ public class JavaProblemRepository {
 
     public ArrayList<Problem> getProblems() {
         return problems;
+    }
+
+    public void resetNickname(String nickname, User newUser) {
+        users.removeIf(user -> user.getNickname().equals(nickname));
+        users.add(newUser);
     }
 }
